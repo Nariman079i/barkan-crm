@@ -16,14 +16,13 @@ class Customer(models.Model):
         if not self.surname:
             return "Клиент"
         return f"{self.surname}"
-    
+
 
 class Service(models.Model):
-    title = models.CharField("Наименование", null=True, blank=True,max_length=255)
-    direct_description = models.CharField("Краткое описание", null=True, blank=True,max_length=255)
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE, null=True, blank=True,max_length=255)
     description = models.TextField("Полное описание", null=True, blank=True,max_length=1000)
-    price = models.IntegerField()
-
+    date_publish = models.DateField(null=True)
+    
     class Meta:
         verbose_name = "Услуга"
         verbose_name_plural = "Услуги"
@@ -31,7 +30,9 @@ class Service(models.Model):
     def __str__(self):
         if not self.title:
             return "Услуга"
-        return self.title
+        return self.title  
+
+
 class Guide(models.Model):
     surname = models.CharField("Фамилия", null=True, blank=True, max_length=255)
     name = models.CharField("Имя", null=True, blank=True, max_length=255)
