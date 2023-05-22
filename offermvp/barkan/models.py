@@ -37,6 +37,7 @@ class Guide(models.Model):
     name = models.CharField("Имя", null=True, blank=True, max_length=255)
     patronymic = models.CharField("Отчество", null=True, blank=True, max_length=255)
     tel = models.CharField("Номер телефона", null=True, blank=True, max_length=255)
+    experience = models.IntegerField(null=True)
     salary = models.IntegerField("Зарплата", null=True, blank=True)
 
     class Meta:
@@ -52,8 +53,8 @@ class Guide(models.Model):
 class History(models.Model):
     guide = models.ForeignKey(Guide,on_delete=models.SET_NULL, null=True)
     customer = models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True)
-    service = models.ForeignKey(Service, on_delete=models.SET_NULL,null=True)
-
+    feedback = models.CharField(max_length=255, null=True)
+    date = models.DateField(null=True)
     def __str__(self) -> str:
         if not self.guide:
             return "История "
